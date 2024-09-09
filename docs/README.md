@@ -35,7 +35,7 @@ The `options` object accepts the same properties as the built-in `parseArgs` fun
 ###### Example
 
 ```js
-import parser from './src/index.js'
+import parser from '@ahmadnassri/cli'
 
 const help = {
   usage: 'example [options]',
