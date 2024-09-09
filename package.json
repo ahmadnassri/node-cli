@@ -1,23 +1,24 @@
 {
   "version": "0.0.0-semantically-released",
-  "name": "@ahmadnassri/template-node-lib",
+  "name": "@ahmadnassri/cli",
   "description": "node library project template",
   "author": "Ahmad Nassri <opensource@ahmadnassri.net> (https://www.ahmadnassri.com)",
-  "homepage": "https://github.com/ahmadnassri/template-node-lib",
+  "homepage": "https://github.com/ahmadnassri/node-cli",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahmadnassri/template-node-lib.git"
+    "url": "https://github.com/ahmadnassri/node-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/ahmadnassri/template-node-lib/issues"
+    "url": "https://github.com/ahmadnassri/node-cli/issues"
   },
   "funding": {
     "type": "individual",
     "url": "https://github.com/sponsors/ahmadnassri"
   },
+  "type": "module",
   "license": "MIT",
   "keywords": [
-    "template",
+    "cli",
     "node",
     "library"
   ],
@@ -30,12 +31,19 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "npm run test:cli -- test",
-    "test:cli": "node --experimental-test-coverage --test",
-    "test:watch": "npm run test:cli -- --watch test",
-    "test:ci": "npm run test:cli -- --test-reporter node-test-github-reporter test"
+    "test": "npm run test:100 --test-reporter=spec --test-reporter-destination=stdout",
+    "test:cli": "node --test --experimental-test-coverage",
+    "test:100": "npm run test:cli -- --test-coverage-branches=100 --test-coverage-functions=100 --test-coverage-lines=100",
+    "test:watch": "npm run test:cli -- --watch",
+    "test:lcov": "npm run test:cli -- --test-reporter=lcov --test-reporter-destination=lcov.info --test-coverage-exclude=test/** --no-warnings",
+    "test:ci": "npm run test:100 -- --test-reporter=@reporters/github --test-reporter-destination stdout"
   },
   "devDependencies": {
-    "node-test-github-reporter": "^1.2.0"
+    "sinon": "^18.0.0",
+    "@reporters/github": "^1.7.0"
+  },
+  "dependencies": {
+    "@ahmadnassri/debug": "^2.0.1",
+    "ajv": "^8.17.1"
   }
 }

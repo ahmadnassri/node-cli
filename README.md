@@ -1,6 +1,6 @@
-# Node Lib Template
+# node-cli
 
-node library project template
+opinionated cli utility
 
 [![license][license-img]][license-url]
 [![release][release-img]][release-url]
@@ -12,24 +12,24 @@ node library project template
 
 > Using [GitHub Actions][]
 
--   release with [conventional-commits][] & [semantic-release][]
--   publish to both npm Public Registry & GitHub Package Manager
--   full history changelog in [GitHub Releases][]
--   automatic pull-requests for dependency updates using [dependabot][]
--   automatic merging of "patch" updates to dependencies using [dependabot-auto-merge][]
--   lint everything with [mega-linter][]
--   lint commit message format against [Conventional Commits][]
--   test on all LTS versions of Node.js
--   run `npm audit` before releasing / testing to keep a higher security standard
--   repositories are kept up to date using [`@ahmadnassri/action-template-repository-sync`][]
+- release with [conventional-commits][] & [semantic-release][]
+- publish to both npm Public Registry & GitHub Package Manager
+- full history changelog in [GitHub Releases][]
+- automatic pull-requests for dependency updates using [dependabot][]
+- automatic merging of "patch" updates to dependencies using [dependabot-auto-merge][]
+- lint everything with [mega-linter][]
+- lint commit message format against [Conventional Commits][]
+- test on all LTS versions of Node.js
+- run `npm audit` before releasing / testing to keep a higher security standard
+- repositories are kept up to date using [`@ahmadnassri/action-template-repository-sync`][]
 
 ##### Local Automation
 
 > Using [Docker Compose][]
 
--   lint everything with [mega-linter][]
--   test on all LTS versions of Node.js
--   generate README using [pandoc][] with a [template][]
+- lint everything with [mega-linter][]
+- test on all LTS versions of Node.js
+- generate README using [pandoc][] with a [template][]
 
 ## Usage
 
@@ -49,9 +49,9 @@ node library project template
 
 use [Docker Compose][] to run tasks locally:
 
--   `docker compose run readme` to regenerate `README.md`
--   `docker compose run test` to run tests across all LTS versions of Node.js
--   `docker compose run lint` to execute [mega-linter][] locally
+- `docker compose run readme` to regenerate `README.md`
+- `docker compose run test` to run tests across all LTS versions of Node.js
+- `docker compose run lint` to execute [mega-linter][] locally
 
 > **Note:**  
 > Your main `README.md` file is in `docs/README.md`, the file at root is generated using [pandoc][] using the provided [template][].
@@ -76,10 +76,10 @@ use [Docker Compose][] to run tasks locally:
 > Twitter: [@AhmadNassri](https://twitter.com/AhmadNassri)
 
 [license-url]: LICENSE
-[license-img]: https://badgen.net/github/license/ahmadnassri/template-node-lib
+[license-img]: https://badgen.net/github/license/ahmadnassri/node-cli
 
-[release-url]: https://github.com/ahmadnassri/template-node-lib/releases
-[release-img]: https://badgen.net/github/release/ahmadnassri/template-node-lib
+[release-url]: https://github.com/ahmadnassri/node-cli/releases
+[release-img]: https://badgen.net/github/release/ahmadnassri/node-cli
 
-[semantic-url]: https://github.com/ahmadnassri/template-node-lib/actions?query=workflow%3Arelease
+[semantic-url]: https://github.com/ahmadnassri/node-cli/actions?query=workflow%3Arelease
 [semantic-img]: https://badgen.net/badge/📦/semantically%20released/blue
