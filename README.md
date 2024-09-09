@@ -8,68 +8,113 @@ opinionated cli utility
 
 ## Features
 
-#### CI Automation
+a drop-in replacement for the built-in [`parseArgs`][] function, with the following features:
 
-> Using [GitHub Actions][]
-
-- release with [conventional-commits][] & [semantic-release][]
-- publish to both npm Public Registry & GitHub Package Manager
-- full history changelog in [GitHub Releases][]
-- automatic pull-requests for dependency updates using [dependabot][]
-- automatic merging of "patch" updates to dependencies using [dependabot-auto-merge][]
-- lint everything with [mega-linter][]
-- lint commit message format against [Conventional Commits][]
-- test on all LTS versions of Node.js
-- run `npm audit` before releasing / testing to keep a higher security standard
-- repositories are kept up to date using [`@ahmadnassri/action-template-repository-sync`][]
-
-##### Local Automation
-
-> Using [Docker Compose][]
-
-- lint everything with [mega-linter][]
-- test on all LTS versions of Node.js
-- generate README using [pandoc][] with a [template][]
+- **Aliases** - support for multiple aliases
+- **Validation** - validate options with JSON Schema
+- **Help** - automated help message generated from the `options` object
 
 ## Usage
 
-#### GitHub Templates
+### `parser(config)`
 
-> Automated through [`@ahmadnassri/action-template-repository-sync`][]
+The method accepts the same `config` object as the built-in `parseArgs` function, with the following additions:
 
-1.  create a repository from the template
-2.  clone locally
-3.  add secrets in GitHub Actions for `NPM_TOKEN` & `GH_TOKEN`
-4.  update `colophon.yml`, `docs/README.md` with info about the project
+| Option          | Type     | Description                       | Default |
+|-----------------|----------|-----------------------------------|---------|
+| `padding`       | `number` | the padding for the help messages | `30`    |
+| `help`          | `object` | the help message object           | `{}`    |
+| `help.usage`    | `string` | the usage message                 | `''`    |
+| `help.examples` | `string` | the examples message              | `''`    |
+| `options`       | `object` | the options object                | `{}`    |
 
-> **Note:**  
-> `GH_TOKEN` is required for action `auto-merge`, `readme`, `release` workflows
+### `options`
 
-## Local Automation
+The `options` object accepts the same properties as the built-in `parseArgs` function, with the following additions:
 
-use [Docker Compose][] to run tasks locally:
+| Option        | Type      | Description                                | Default |
+|---------------|-----------|--------------------------------------------|---------|
+| `arg`         | `string`  | the option input name (displayed in help)  | `''`    |
+| `description` | `string`  | the option description (displayed in help) | `''`    |
+| `aliases`     | `array`   | an array of aliases                        | `[]`    |
+| `schema`      | `object`  | a JSON Schema object for validation        | `{}`    |
+| `required`    | `boolean` | whether the option is required             | `false` |
 
-- `docker compose run readme` to regenerate `README.md`
-- `docker compose run test` to run tests across all LTS versions of Node.js
-- `docker compose run lint` to execute [mega-linter][] locally
+###### Example
 
-> **Note:**  
-> Your main `README.md` file is in `docs/README.md`, the file at root is generated using [pandoc][] using the provided [template][].
->
-> You should run `docker compose run readme` after any change to `docs/README.md` and before commit / push
+``` js
+import parser from './src/index.js'
 
-  [GitHub Actions]: https://github.com/features/actions
-  [conventional-commits]: https://www.conventionalcommits.org/
-  [semantic-release]: https://github.com/marketplace/actions/conventional-semantic-release
-  [GitHub Releases]: /template-node-lib/releases
-  [dependabot]: https://dependabot.com/
-  [dependabot-auto-merge]: https://github.com/marketplace/actions/dependabot-auto-merge
-  [mega-linter]: https://oxsecurity.github.io/megalinter/
-  [Conventional Commits]: https://www.conventionalcommits.org/en/v1.0.0/
-  [`@ahmadnassri/action-template-repository-sync`]: https://github.com/ahmadnassri/action-template-repository-sync
-  [Docker Compose]: https://docs.docker.com/compose/
-  [pandoc]: https://pandoc.org/
-  [template]: ./docs/README.template
+const help = {
+  usage: 'example [options]',
+  examples: 'example --color blue --color green'
+}
+
+const options = {
+  color: {
+    short: 'c',
+    arg: 'name',
+    type: 'string',
+    description: 'a long by thoughtfully written description about this property',
+    required: true,
+    multiple: true,
+    default: ['blue', 'green'],
+    aliases: ['colour'],
+    schema: {
+      type: 'array',
+      items: {
+        enum: ['blue', 'green']
+      }
+    }
+  }
+}
+
+const { values, positionals } = parser({ help, options })
+
+console.log(`color: ${values.color}`)
+console.log(`positionals: ${positionals}`)
+```
+
+###### `--help`
+
+``` plain
+USAGE
+example [options]
+
+OPTIONS
+  -h, --help                  print command line options
+  -c, --color* <name>         a long by thoughtfully written description about this property
+                              accepts multiple | default: blue,green | choices: blue, green | aliases: --colour
+
+EXAMPLES
+example --color blue --color green
+```
+
+###### `--color=green --colour=blue foo bar`
+
+``` plain
+color: green,blue
+positionals: foo,bar
+```
+
+###### `--color=red`
+
+``` plain
+❌ --color must be equal to one of the allowed values
+
+USAGE
+example [options] 
+
+OPTIONS
+  -h, --help                  print command line options
+  -c, --color* <name>         a long by thoughtfully written description about this property
+                              accepts multiple | default: blue,green | aliases: --colour
+                              
+EXAMPLES
+example --color blue --color green 
+```
+
+  [`parseArgs`]: https://nodejs.org/api/util.html#utilparseargsconfig
 
 ----
 > Author: [Ahmad Nassri](https://www.ahmadnassri.com/) &bull;
