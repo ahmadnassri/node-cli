@@ -1,4 +1,4 @@
-# node-cli
+# cli
 
 opinionated cli utility
 

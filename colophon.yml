@@ -1,8 +1,8 @@
 version: 2.0
 
-id: node-cli
+id: cli
 
 about:
-  title: node-cli
+  title: cli
   description: opinionated cli utility
   repository: ahmadnassri/node-cli
