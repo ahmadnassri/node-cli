@@ -30,7 +30,6 @@
   ],
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
     "test": "npm run test:100 --test-reporter=spec --test-reporter-destination=stdout",
     "test:cli": "node --test --experimental-test-coverage",
     "test:100": "npm run test:cli -- --test-coverage-branches=100 --test-coverage-functions=100 --test-coverage-lines=100",
