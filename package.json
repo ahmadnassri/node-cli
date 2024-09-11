@@ -38,7 +38,7 @@
     "test:ci": "npm run test:100 -- --test-reporter=@reporters/github --test-reporter-destination stdout"
   },
   "devDependencies": {
-    "sinon": "^18.0.0",
+    "sinon": "^18.0.1",
     "@reporters/github": "^1.7.1"
   },
   "dependencies": {
