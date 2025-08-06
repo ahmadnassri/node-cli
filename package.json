@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "sinon": "^18.0.1",
-    "@reporters/github": "^1.8.0"
+    "@reporters/github": "^1.9.1"
   },
   "dependencies": {
     "@ahmadnassri/debug": "^2.0.1",
