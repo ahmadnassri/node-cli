@@ -43,6 +43,6 @@
   },
   "dependencies": {
     "@ahmadnassri/debug": "^2.0.1",
-    "ajv": "^8.18.0"
+    "ajv": "^8.20.0"
   }
 }
